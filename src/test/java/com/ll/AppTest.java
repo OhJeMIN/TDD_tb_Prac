@@ -55,4 +55,53 @@ public class AppTest {
         assertThat(rs).contains("1번 명언이 등록되었습니다.");
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
     }
+
+    @Test
+    @DisplayName("등록을 할때마다 번호 증가")
+    void t4(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각할 때가 제일 늦다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                종료
+                """.stripIndent());
+
+        new App(scanner).run();
+        scanner.close();
+
+        String rs  = byteArrayOutputStream.toString();
+
+        assertThat(rs).contains("2번 명언이 등록되었습니다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+    }
+
+    @Test
+    @DisplayName("목록 입력하면 목록이 번호 /작가 /명언 순으로 나오게 한다.")
+    void t5(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각할 때가 제일 늦다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                목록
+                종료
+                """.stripIndent());
+
+        new App(scanner).run();
+        scanner.close();
+
+        String rs  = byteArrayOutputStream.toString();
+
+        assertThat(rs).contains("2 / 박명수 / 어려운 길은 길이 아니다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+    }
 }
