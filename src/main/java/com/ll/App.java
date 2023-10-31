@@ -1,6 +1,7 @@
 package com.ll;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -36,6 +37,14 @@ public class App {
                 for(int i=quotations.size()-1;i>=0;i--){
                     Quotation quotation = quotations.get(i);
                     System.out.println(quotation.getId()+1 + " / " + quotation.getAuthorName()+ " / " + quotation.getContent());
+                }
+            }
+            else if (cmd.startsWith("삭제")){
+                String[] cmdBits = cmd.split("\\?",2);
+                System.out.println(Arrays.toString(cmdBits));
+                System.out.println(cmdBits.length);
+                if(cmdBits[1].isBlank()){
+                    System.out.println("삭제할 id도 입력해주세요.");
                 }
             }
         }
