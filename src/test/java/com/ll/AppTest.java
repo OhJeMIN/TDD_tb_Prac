@@ -104,4 +104,55 @@ public class AppTest {
         assertThat(rs).contains("2 / 박명수 / 어려운 길은 길이 아니다.");
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
     }
+
+    @Test
+    @DisplayName("명령문 뒤에? 를 제거하고 명령 알아듣기")
+    void t6(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각할 때가 제일 늦다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                목록
+                삭제?
+                종료
+                """.stripIndent());
+
+        new App(scanner).run();
+        scanner.close();
+
+        String rs  = byteArrayOutputStream.toString().trim();
+
+        assertThat(rs).contains("id가 없습니다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+    }
+
+    @Test
+    @DisplayName("명령문 뒤에? 를 제거하고 명령들 중 id값 받아오기")
+    void t7(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각할 때가 제일 늦다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                목록
+                삭제?id=1&author=박명수
+                종료
+                """.stripIndent());
+
+        new App(scanner).run();
+        scanner.close();
+
+        String rs  = byteArrayOutputStream.toString().trim();
+        assertThat(rs).contains("1번 명언이 삭제되었습니다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+    }
 }
