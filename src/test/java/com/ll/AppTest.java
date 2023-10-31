@@ -127,7 +127,7 @@ public class AppTest {
 
         String rs  = byteArrayOutputStream.toString().trim();
 
-        assertThat(rs).contains("삭제할 id도 입력해주세요.");
+        assertThat(rs).contains("id가 없습니다.");
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
     }
 
@@ -152,7 +152,6 @@ public class AppTest {
         scanner.close();
 
         String rs  = byteArrayOutputStream.toString().trim();
-
         assertThat(rs).contains("1번 명언이 삭제되었습니다.");
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
     }
